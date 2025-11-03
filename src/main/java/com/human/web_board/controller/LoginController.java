@@ -40,7 +40,4 @@ public class LoginController {
         session.invalidate();  // 저장된 세션 정보를 무효화 시킴
         return "redirect:/";
     }
-
-
-
 }

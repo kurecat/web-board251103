@@ -11,7 +11,7 @@
     <h1 class="logo"><a th:href="@{/posts}">Web Board</a></h1>
     <nav class="nav">
       <a th:href="@{/posts}" th:classappend="${active}=='posts' ? ' active'">게시글</a>
-      <a th:href="@{/members}" th:classappend="${active}=='members' ? ' active'">회원 목록</a>
+      <a th:href="@{/members/memberlist}" th:classappend="${active}=='members/memberlist' ? ' active'">회원 목록</a>
       <a th:href="@{/logout}">로그아웃</a>
     </nav>
   </div>

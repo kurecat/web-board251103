@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
         try {
             list = memberDao.findAll();
         } catch (DataAccessException e) {
-            log.error("회원 목록 조회 중 DB 예외 발생: {}", e.getCause());
+            log.error("회원 목록 조회 중 DB 예외 발생: {}", e.getMessage());
             throw new IllegalArgumentException("회원 목록을 조회 할 수 없습니다.");
         }
         return list;
