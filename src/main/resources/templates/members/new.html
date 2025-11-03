@@ -6,10 +6,11 @@
     <link rel="stylesheet" th:href="@{/css/login.css}" />
 </head>
 <body>
-<h2>회원 가입</h2>
-<div th:if="${error}" class="error-message" th:text="${error}"></div>
+<Section class="card">
+    <h2>회원 가입</h2>
 
 <form th:action="@{/members/new}" th:object="${memberFrom}" method="post">
+
     <label for="name">이름</label>
     <input type="text" id="name" th:field="*{name}" required />
 
@@ -20,6 +21,9 @@
     <input type="password" id="password" th:field="*{pwd}" required />
 
     <button type="submit">가입하기</button>
+
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
 </form>
+</Section>
 </body>
 </html>

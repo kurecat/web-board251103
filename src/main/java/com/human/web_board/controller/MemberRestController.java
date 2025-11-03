@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/members")  // http://localhost:8111/api/members
 @Slf4j
 public class MemberRestController {
+
     private final MemberService memberService;
     @PostMapping("/signup")   // Post 방식 : 정보를 Body 숨겨서 전송 하는 방식, 정보를 추가할 때 주로 사용
     public ResponseEntity<Long> signup(@RequestBody MemberSignupReq req) {
@@ -31,5 +32,10 @@ public class MemberRestController {
     @GetMapping("/{email}")
     public ResponseEntity<MemberRes> findByEmail(@PathVariable String email) {
         return ResponseEntity.ok(memberService.getByEmail(email));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MemberRes> findById(@PathVariable String id) {
+        return ResponseEntity.ok(memberService.getByEmail(id));
     }
 }

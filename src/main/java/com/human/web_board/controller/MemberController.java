@@ -7,11 +7,14 @@ import com.human.web_board.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -48,4 +51,19 @@ public class MemberController {
         model.addAttribute("members", list);
         return "members/memberlist";
     }
+
+    @GetMapping("/members/memberS/{id}")
+    public String findMemberById(@PathVariable Long id, Model model){
+        MemberRes memberRes = memberService.getById(id);
+        model.addAttribute("member", memberRes);
+        return "members/memberS";
+    }
+
+//    @PutMapping("/members/memberUpdate/{id}")
+//    public String updateById(@PathVariable Long id, Model model, String pwd, String name){
+//        MemberRes memberRes = memberService.getById(id);
+//        model.addAttribute("member", memberRes);
+//
+//    }
+
 }
