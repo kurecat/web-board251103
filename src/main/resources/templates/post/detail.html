@@ -117,7 +117,7 @@
                 >
                     2025-11-04 10:10
                 </td>
-                <td style="text-align: right">`
+                <td style="text-align: right">
                     <a
                             class="btn"
                             th:href="@{|/comments/${c.id}/edit|}"
@@ -130,8 +130,8 @@
                             method="post"
                             style="display: inline"
                     >
-                        <!-- 삭제 후 다시 이 게시글 상세로 돌아가기 위해 postId 함께 전송 -->
                         <input type="hidden" name="postId" th:value="${post.id}" />
+
                         <button
                                 class="btn btn-primary"
                                 type="submit"
