@@ -1,6 +1,7 @@
 package com.human.web_board.controller;
 
 import com.human.web_board.dto.CommentCreateReq;
+import com.human.web_board.dto.MemberRes;
 import com.human.web_board.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,11 @@ public class CommentController {
 //     댓글 등록
     @PostMapping("{postId}")
     public String create(@PathVariable Long postId, CommentCreateReq req, HttpSession session){
+        MemberRes member = (MemberRes) session.getAttribute("loginMember");
         if (session.getAttribute("loginMember") == null) return "redirect:/";
         req.setPostId(postId);
+        req.setMemberId(member.getId());
         commentService.write(req);
-        return "redirect:/posts" + postId;
+        return "redirect:/posts/" + postId;
     }
 }
