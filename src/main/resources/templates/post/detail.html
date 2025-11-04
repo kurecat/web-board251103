@@ -110,7 +110,7 @@
             </thead>
             <tbody>
             <tr th:each="c : ${comments}">
-                <td th:text="${c.memberId}">user@example.com</td>
+                <td th:text="${c.memberEmail}">user@example.com</td>
                 <td th:text="${c.content}" style="white-space: pre-wrap"></td>
                 <td
                         th:text="${#temporals.format(c.createAt,'yyyy-MM-dd HH:mm')}"
