@@ -7,6 +7,7 @@ import com.human.web_board.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.PanelUI;
@@ -25,22 +26,42 @@ public class CommentController {
         commentService.write(req);
         return "redirect:/posts/" + postId;
     }
-
-    @PostMapping("/{commentId}/delete") // ‼️ URL 변경
-    public String delete(
-            @PathVariable("commentId") Long commentId,     // ‼️ 삭제할 댓글 ID
-            @RequestParam("postId") Long postId,           // ‼️ 돌아갈 게시글 ID
-            HttpSession session
-    ){
+    // 댓글 삭제
+    @PostMapping("/{commentId}/delete")
+    public String delete(@PathVariable("commentId") Long commentId, @RequestParam("postId") Long postId, HttpSession session){
         MemberRes member = (MemberRes) session.getAttribute("loginMember");
-        if (member == null) { // "loginMember" 체크 (일관성)
+        if (member == null) return "redirect:/";
+
+        commentService.delete(commentId);
+
+        return "redirect:/posts/" + postId;
+    }
+
+
+    @GetMapping("/{commentId}/edit")
+    public String showEditForm(@PathVariable("commentId") Long commentId, Model model, HttpSession session) {
+
+        if (session.getAttribute("loginMember") == null) return "redirect:/";
+
+        CommentRes comment = commentService.findById(commentId);
+
+        model.addAttribute("comment", comment);
+
+        return "post/edit";
+    }
+
+    @PostMapping("/{commentId}/edit")
+    public String processEditForm(
+            @PathVariable("commentId") Long commentId,
+            @ModelAttribute("comment") CommentCreateReq req,
+            HttpSession session
+    ) {
+        if (session.getAttribute("loginMember") == null) {
             return "redirect:/";
         }
 
-        // ‼️ 서비스에 정확한 "commentId"를 전달하여 하나만 삭제
-        commentService.delete(commentId);
+        commentService.update(req, commentId);
 
-        // ‼️ "postId"로 상세 페이지에 리다이렉트
-        return "redirect:/posts/" + postId;
+        return "redirect:/posts/" + req.getPostId();
     }
 }

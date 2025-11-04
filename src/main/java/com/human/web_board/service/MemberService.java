@@ -21,4 +21,6 @@ public interface MemberService {
 
     // 회원 목록 보기
     List<MemberRes> list();
+
+    MemberRes delete(Long id);
 }

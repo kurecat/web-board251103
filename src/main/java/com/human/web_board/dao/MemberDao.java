@@ -51,6 +51,12 @@ public class MemberDao {
         return jdbc.query(sql, new MemberRowMapper());
     }
 
+    public MemberRes delete(Long id){
+        @Language("SQL")
+        String sql = "delete from member where id=?";
+        return jdbc.queryForObject(sql, new MemberRowMapper());
+    }
+
     // Mapper 메서드  DB -> Member
     static class MemberRowMapper implements RowMapper<MemberRes> {
         @Override

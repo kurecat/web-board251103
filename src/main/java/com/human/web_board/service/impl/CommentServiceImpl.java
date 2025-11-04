@@ -43,4 +43,14 @@ public class CommentServiceImpl implements CommentService {
     public boolean delete(Long id) {
         return commentDao.delete(id);
     }
+
+    @Override
+    public CommentRes findById(Long id) {
+        CommentRes comment = commentDao.findById(id);
+
+        if (comment == null) {
+            throw new IllegalArgumentException("ID가 " + id + "인 댓글을 찾을 수 없습니다.");
+        }
+        return comment;
+    }
 }

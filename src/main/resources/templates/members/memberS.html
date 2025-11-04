@@ -38,6 +38,30 @@
                 <td th:text="${#temporals.format(member.redDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
             </tbody>
+            <td style="text-align: right">
+                <a
+                        class="btn"
+                        th:href="@{|/memberS/${member.id}/edit|}"
+                        style="border: 1px solid var(--border); background: #fff"
+                >수정</a>
+
+                <form
+                        th:action="@{|/memberS/${member.id}/delete|}"
+                        method="post"
+                        style="display: inline"
+                >
+                    <input type="hidden" name="memberId" th:value="${member.id}" />
+
+                    <button
+                            class="btn btn-primary"
+                            type="submit"
+                            style="background: #ef4444; border-color: #ef4444"
+                    >
+                        삭제
+                    </button>
+                </form>
+            </td>
+            </tr>
         </table>
     </div>
 </main>

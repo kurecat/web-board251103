@@ -3,6 +3,7 @@ package com.human.web_board.dao;
 import com.human.web_board.dto.CommentCreateReq;
 import com.human.web_board.dto.CommentRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -49,6 +50,21 @@ public class CommentDao {
         @Language("SQL")
         String sql = " UPDATE comments SET content = ? WHERE id = ?";
         return jdbc.update(sql, c.getContent(), id) > 0;
+    }
+
+    public CommentRes findById(Long id) {
+        @Language("SQL")
+        String sql = """
+            SELECT c.id, c.post_id, c.member_id, m.email, c.content, c.created_at 
+            FROM comments c JOIN member m ON c.member_id = m.id 
+            WHERE c.id = ?
+        """;
+
+        try {
+            return jdbc.queryForObject(sql, new CommentResMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     // mapper 메서드

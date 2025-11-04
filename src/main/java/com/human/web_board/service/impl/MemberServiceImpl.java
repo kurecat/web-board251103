@@ -62,4 +62,9 @@ public class MemberServiceImpl implements MemberService {
         }
         return list;
     }
+
+    @Override
+    public MemberRes delete(Long id) {
+
+    }
 }
