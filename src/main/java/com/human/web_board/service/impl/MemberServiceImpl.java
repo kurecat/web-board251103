@@ -65,6 +65,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberRes delete(Long id) {
-
+        return null;
     }
 }
